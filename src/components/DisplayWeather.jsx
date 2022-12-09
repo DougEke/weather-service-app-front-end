@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from 'react';
 import "../styles/displayweather.css";
 import Forecast from "./Forecast";
 import ForecastedWeather from "./ForecastedWeather";
