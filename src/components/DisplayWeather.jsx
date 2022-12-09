@@ -7,9 +7,9 @@ import ForecastedWeather from "./ForecastedWeather";
 function DisplayWeather (props) {
     const {data} = props;    
 
-    // const iconurl = "http://openweathermap.org/img/wn/" +
-    // `${data.cod != 404 ? data.weather[0].icon : null}` +
-    // ".png";
+    const iconurl = "http://openweathermap.org/img/wn/" +
+    `${data.cod != 404 ? data.weather[0].icon : null}` +
+    ".png";
 
     const daylist = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]; 
 
@@ -36,10 +36,10 @@ function DisplayWeather (props) {
                             {data.weather[0].main}
                         </span>
 
-                        {/* <img className="weather-icon" 
+                        <img className="weather-icon" 
                             src={iconurl} 
                             alt="" 
-                            srcset="" /> */}
+                            srcset="" />
 
                         <span className="weather-description">
                             {"  "}
