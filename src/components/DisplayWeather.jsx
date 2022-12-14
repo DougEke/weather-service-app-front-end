@@ -3,11 +3,16 @@ import { useState } from 'react';
 import "../styles/displayweather.css";
 import Forecast from "./Forecast";
 import ForecastedWeather from "./ForecastedWeather";
-import {FiSunrise} from "react-icons/fi";
+import {FiSunrise, FiVolumeX} from "react-icons/fi";
 import {FiSunset} from "react-icons/fi";
 import {WiHumidity} from "react-icons/wi";
 import {WiDayHaze} from "react-icons/wi";
 import {WiBarometer} from "react-icons/wi";
+import { styled } from '@mui/material/styles';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+import { Tooltip } from "@mui/material";
 
 function DisplayWeather (props) {
     const {data} = props;    
@@ -47,191 +52,118 @@ function DisplayWeather (props) {
                             srcSet="" />
 
                         <form>
-                            <span className="hi-lo-temp">                             
-                                {Math.floor(data.main.temp_max - 273.15)} / {Math.floor(data.main.temp_min - 273.15)} Feels like: {Math.floor(data.main.feels_like - 273.15)}
-                            </span>
-                        </form>
+                            <Grid container
+                                spacing={5}
+                                    style={{
+                                        display: 'flex',
+                                        justifyContent: 'left',
+                                    }}>
+                                <Grid item xs={3}>                                                                
+                                    {Math.floor(data.main.temp_max - 273.15)} / {Math.floor(data.main.temp_min - 273.15)}                                    
+                                </Grid>
+                                <Grid item xs={2}>
+                                    Feels like: {Math.floor(data.main.feels_like - 273.15)} 
+                                </Grid>
+                                <Grid item xs={2}>                          
+                                    Wind: {Math.floor((data.wind.speed * 18) /5)} kph
+                                </Grid>
+                                <Grid item xs={4}>                          
+                                    Direction: {Math.floor(data.wind.deg)}<sup>o</sup> 
+                                </Grid>
+                            </Grid>
+                        </form> 
                     </div>
 
-                    <form>
-                        <div className="sunrise-set">
-                            <div
-                                style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                }}>
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <FiSunrise
-                                            style={{
-                                                display: 'flex',
-                                                width: 70,
-                                                height: 50,
-                                            }}/>
-                                        </td>
-                                        <td></td>
-                                        <td>                                            
-                                        </td>
-                                        <td>
-                                            <FiSunset
-                                            style={{
-                                                display: 'flex',
-                                                width: 70,
-                                                height: 50,
-                                            }}/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span>
-                                                <h5>{new Date(data.sys.sunrise * 1000).toLocaleTimeString()}</h5>
-                                            </span> 
-                                        </td>
-                                        <td></td>
-                                        <td>                                            
-                                        </td>
-                                        <td>
-                                            <span>
-                                                <h5>{new Date(data.sys.sunset * 1000).toLocaleTimeString()}</h5>
-                                            </span> 
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                    </form>
+                   <form>
+                        <Grid container 
+                            spacing={12}
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                            }}> 
 
-                    <form>
-                        <div className="weather-info">
-                            <div 
-                                style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                }}>
+                            <Grid item xs={3}>
+                                    <FiSunrise
+                                        style={{
+                                            display: 'flex',
+                                            width: 70,
+                                            height: 50,}}/>
+                            </Grid>
+                            <Grid item xs={3}>
+                                    <FiSunset
+                                        style={{
+                                            display: 'flex',
+                                            width: 70,
+                                            height: 50,}}/>
+                            </Grid>
+                        </Grid>
+                        <Grid container 
+                            spacing={12}
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                            }} >   
+                            <Grid item xs={3}>
+                                <h5>{new Date(data.sys.sunrise * 1000).toLocaleTimeString()}</h5>
+                            </Grid>
+                            <Grid item xs={3}>
+                                <h5>{new Date(data.sys.sunset * 1000).toLocaleTimeString()}</h5>
+                            </Grid>
 
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <WiHumidity
-                                                style={{
-                                                    display: 'flex',
-                                                    width: 70,
-                                                    height: 70,
-                                                }}/>
-                                        </td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>
-                                            <WiBarometer
-                                                style={{
-                                                    display: 'flex',
-                                                    width: 70,
-                                                    height: 70,
-                                                }}/>
-                                        </td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>
-                                            <WiDayHaze
-                                                style={{
-                                                    display: 'flex',
-                                                    width: 70,
-                                                    height: 70,
-                                                }}/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            {/* <span> */}
-                                                <h6>{data.main.humidity}</h6>
-                                            {/* </span> */}
-                                        </td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>
-                                            <span>
-                                                <h6>{data.main.pressure} hPa</h6>
-                                            </span>
-                                        </td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>
-                                            <span>
-                                                <h6>{data.visibility / 1000} km</h6>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>    
-                    </form>                    
+                        </Grid>
+                   </form>
 
+                   <form>
+                        <Grid container 
+                            spacing={12}
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                            }}> 
 
-                    <div className="weatherdetails">
-                        
-                        {/* <div className="section1">
-                            <table>
-                                <tr>
-                                    <td>
-                                        <h4>Humidity</h4>                                            
-                                    </td>
-                                    <td>
-                                        <span>
-                                            {data.main.humidity}
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <h4>Pressure</h4>                                            
-                                    </td>
-                                    <td>
-                                        <span>
-                                            {data.main.pressure} hPa
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <h4>Visibility</h4>                                            
-                                    </td>
-                                    <td>
-                                        <span>
-                                            {data.visibility / 1000} km
-                                        </span>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div> */}
+                            <Grid item xs={3}>
+                                <WiHumidity
+                                    style={{
+                                        display: 'flex',
+                                        width: 70,
+                                        height: 70,
+                                    }}/>
+                            </Grid>
+                            <Grid item xs={3}>
+                                <WiBarometer
+                                    style={{
+                                        display: 'flex',
+                                        width: 70,
+                                        height: 70,
+                                    }}/>
+                            </Grid>
+                            <Grid item xs={3}>
+                                <WiDayHaze
+                                    style={{
+                                        display: 'flex',
+                                        width: 70,
+                                        height: 70,
+                                    }}/>
+                            </Grid>  
+                        </Grid>  
+                        <Grid container
+                            style={{
+                                justifyContent: 'space-between',
+                                flexbasis: 'auto,'
+                            }}>
 
-                        <div className="section2">
-                            <table>
-                                <tr>
-                                    <td>
-                                        <h4>Wind</h4>
-                                    </td>
-                                    <td>
-                                        <span>{Math.floor((data.wind.speed * 18) /5)} kph </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <h4>Wind Direction</h4>
-                                    </td>
-                                    <td>
-                                        <span>{Math.floor(data.wind.deg)} <sup>o</sup> deg </span>
-                                    </td>
-                                </tr>                                
-                            </table>
+                            <Grid item xs={5}>
+                                <h6>{data.main.humidity}</h6>
+                            </Grid>  
+                            <Grid item xs={3}>
+                                <h6>{data.main.pressure} hPa</h6>
+                            </Grid>
+                            <Grid item xs={4}>
+                                <h6>{data.visibility / 1000} km</h6>
+                            </Grid>  
 
-                        </div>
-
-                    </div>
-
-                    {/* console.log("DisplayWeather debug: " + data); */}
+                        </Grid> 
+                   </form> 
 
                     <div className="weather-forecast">                        
                         <form>
