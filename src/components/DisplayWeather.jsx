@@ -59,7 +59,7 @@ function DisplayWeather (props) {
                                         justifyContent: 'left',
                                     }}>
                                 <Grid item xs={3}>                                                                
-                                    {Math.floor(data.main.temp_max - 273.15)} / {Math.floor(data.main.temp_min - 273.15)}                                    
+                                    Hi/Lo: {Math.floor(data.main.temp_max - 273.15)} / {Math.floor(data.main.temp_min - 273.15)}                                    
                                 </Grid>
                                 <Grid item xs={2}>
                                     Feels like: {Math.floor(data.main.feels_like - 273.15)} 
