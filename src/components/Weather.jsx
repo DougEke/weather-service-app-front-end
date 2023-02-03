@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useEffect } from 'react';
 import { useState } from 'react';
 import DisplayWeather from "./DisplayWeather";
@@ -25,6 +25,8 @@ function Weather () {
     const apiKey = 'f17a2fb25fcbb581fbdc91627d0afb28';
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${form.city}&appid=${apiKey}`; 
 
+    const url = "http://localhost:3000/";
+
  
     async function weatherData(e) {
         e.preventDefault();
@@ -42,6 +44,30 @@ function Weather () {
             console.log("weather: " + {data});
         }
     }
+
+    /**
+     * 
+     * ToDo: This will eventually replace the above async code.
+     * Aim: When the city selection button is made, a rest call is made to the controller (WeatherServiceController) in order to 
+     * retrieve the data from the openweather api, i.e. https://api.openweathermap.org/data/2.5/weather?q=${form.city}&appid=${apiKey}.
+     * This is achieved via an api call to openweather within the WeatherServiceImpl.
+     * The returned data is then mapped to the WeatherData and saved to the h2 db, whilst the returned json file is returned
+     * back to the front end (here).
+     */
+    // const fetchWeatherData = useCallback(async() => {
+    //     fetch(url + '{form.city}',
+    //         method: "GET",
+    //         headers: {
+    //         "Accept" : "application/json",
+    //         "Content-type": "application/json",
+    //         "Authorisation": 'Bearer ${token}'
+    //         }
+    //     })
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         console.log(data);
+    //     }).catch(error => {});
+    // }, [token, setWeather]);
 
     const handleChange = (e) => {
         let name = e.target.name;
