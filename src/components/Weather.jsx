@@ -1,6 +1,7 @@
 import React, { useCallback } from "react";
-import { useEffect } from 'react';
-import { useState } from 'react';
+// import { useEffect } from 'react';
+// import { useState } from 'react';
+import { useState, useEffect, useRef } from "react";
 import DisplayWeather from "./DisplayWeather";
 import "../styles/weather.css";
 
@@ -8,6 +9,7 @@ function Weather () {
 
     const [lat, setLat] = useState([]);
     const [long, setLong] = useState([]);
+    const [city, setCity ] = useState([]);
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -28,8 +30,11 @@ function Weather () {
     const url = "http://localhost:3000/";
 
  
+    
     async function weatherData(e) {
         e.preventDefault();
+
+        setCity(form.city);
 
         if(form.city === "") {
             alert("Add a city");
@@ -42,8 +47,35 @@ function Weather () {
             setWeather({data: data});
 
             console.log("weather: " + {data});
+            console.log(weather.data);
         }
     }
+    
+    useEffect(() => {
+        const interval = setInterval(() => {
+          console.log('This will run every second!');
+        //   console.log('DEBUG: [todo] - Getting data from openweatherapi.....');
+        }, 2000);
+        return () => clearInterval(interval);
+      }, []);
+
+    // useEffect(() => {
+
+    //     const interval = setInterval(() => {
+    //         console.log('DEBUG: [todo] - Getting data from openweatherapi.....');
+
+    //         // At this point we need to make a rest call to the WeatherServiceController rest endpoint
+    //         // via the weatherdata function.
+    //         // For this we need the city that is stored within the city variable, city.
+
+    //         // weatherData(city);
+            
+    //     }, 2000);
+
+    //     // return () => clearInterval(interval);
+    // }, []);
+
+
 
     /**
      * 
@@ -111,6 +143,11 @@ function Weather () {
                 />   
             </form>
             <form>
+
+                {/* 
+                    Button to select the weather data for the given place name contained within
+                    the paramater e. 
+                */}
                 <button className="getWeather"                         
                     onClick={(e) => weatherData(e)}>
                     Get Weather
